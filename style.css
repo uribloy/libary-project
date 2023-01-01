@@ -1,0 +1,201 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(130, 220, 255);
+}
+  header{
+    background-color: rgb(125, 215, 215);
+    width: 100%;
+    position: fixed;
+    color: white;
+  }
+    h1{
+      text-align: center;
+      margin: 10px auto;
+      padding: 5px;
+    }
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      text-align: justify;
+    }
+    .nav span {
+      background-color: rgb(85, 225, 225);
+      margin: 1px 10px 1px 10px;
+      padding: 3px;
+    }
+.content {
+  display: flex;
+  margin: 0 auto 0;
+  width: 85%;
+  height: auto;
+  padding: 90px 10px 10px 10px;
+}
+  #mengerscreen, #genralscreen {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 140px);
+    margin: auto;
+    padding: 5px;
+    background-color: rgb(210, 255, 240);
+    text-align: right;
+
+  }
+    #booksArea{
+      width: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+      .book {
+        transition: transform .2s;
+        width: 170px;
+        height: auto;
+        float: right;
+        padding: 5px;
+        margin: 15px;
+        font-size: 10pt;
+        background-color: lightgrey;
+        border: 2px, solid, blue;
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0 0 5px 0 rgb(50, 0, 255);
+      }
+      .book:hover{
+        transform:scale(1.1);
+      }
+        .book img {
+          width: 65%;
+          height: 150px;
+          margin: auto;
+          border-radius: 5px;
+        }
+        .btnaddbook{
+          width: 55px;
+          height: 25px;
+          background-color: lightseagreen;
+          color: white;
+          font-weight: 300;
+          padding: 1px;
+          border-radius: 5px;
+        }
+    #myborrowing{
+      width: 30%;
+      height: fit-content;
+      border-radius: 5px;
+      padding: 10px;
+      background-color: lightgray;
+      display: none;
+      flex-direction: column;
+      align-content: flex-start;
+      align-items: stretch;
+    }
+      .myborrow{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .myborrow button{
+        width: 45px;
+        height: 25px;
+        background-color: lightskyblue;
+        color: white;
+        border: none;
+        padding: 3px;
+        border-radius: 3px;
+      }
+      #closelist{
+        width: 55px;
+        height: 30px;
+        background-color: blue;
+        color: white;
+        border: none;
+        padding: 3px;
+        border-radius: 3px;
+      }
+    #mengerscreen {
+      justify-content: space-between;
+      background-color: beige;
+    }
+      .control{
+        width: 20%;
+        /* height: auto; */
+      }
+      #mngArea {
+        width: 70%;
+        /* height: auto; */
+        background-color: lightgray;
+        border: 2px, solid, gray;
+        border-radius: 7px;
+        /* margin: 10px; */
+        padding: 5px;
+      }
+      .add, #printed{
+        display: flex;
+        flex-direction: column
+      }
+        input, select {
+          width: 200px;
+          background-color: white;
+          border: 2px, solid, black;
+          border-radius: 5px;
+          margin-top: 2px;
+          margin-bottom: 5px;
+          padding: 5px;
+        }
+button {
+  width: 85px;
+  height: 40px;
+  margin: 5px;
+  padding: 5px;
+  /* align-items: center; */
+}
+#reportarea{
+  display: flex;
+  flex-direction: column;
+}
+.bookoflist, .useroflist{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bookoflist button, .useroflist button  {
+  width: 45px;
+  height: 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 3px;
+}
+.userbookborrow{
+   display: flex;
+   margin: 3px 0;
+}
+.userborrow{
+  width: 30%;
+  margin-left: 10px;
+  padding: 2px;
+}
+.booksborrow{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  padding: 2px;
+}
+footer{
+  width: 100%;
+  height: auto;
+  background-color: rgb(125, 215, 215);
+  color: white;
+  text-align: center;
+}
+footer h3{
+  padding: 10px;
+}

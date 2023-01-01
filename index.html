@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="libary, project, book, ספריה, ספרי קריאה, השאלה">
+    <title>libary project</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="script.js" defer></script>
+</head>
+
+<body dir="rtl">
+    <header>
+        <h1>הספריה שלי</h1>
+        <div class="nav">
+            <p>
+                <span id="genral">ראשי</span> <span id="menger">עריכה וניהול</span>
+            </p>
+            <p>
+                <span id="mylistbook">רשימת הספרים שלי</span>
+            </p>
+        </div>
+    </header>
+    <div class="content">
+        <div id="mengerscreen">
+            <div class="control">
+                <button id="newuserbtn">הוסף משתמש חדש</button>
+                <button id="newbookbtn">הוסף ספר חדש</button>
+                <hr>
+                <button id="reportuserbtn">הצג רשימת מנויים</button>
+                <button id="reportbookbtn">הצג רשימת ספרים</button>
+                <button id="reportborrowbtn">הצג רשימת השאלות</button>
+            </div>
+            <div id="mngArea">
+                <form class="add" id="aduser">
+                    <label for="first name">שם פרטי:</label>
+                    <input type="text" name="first name" id="fname" required>
+                    <label for="last name">שם משפחה:</label>
+                    <input type="text" name="last name" id="lname" required>
+                    <label for="adress">כתובת:</label>
+                    <input type="text" name="adress" id="useradress" required>
+                    <label for="phone">טלפון:</label>
+                    <input type="tel" name="phone" id="userphone" required>
+                    <label for="email">דואר אלקטרוני:</label>
+                    <input type="email" name="email" id="usermail" required>
+                    <label for="password">סיסמא:</label>
+                    <input type="password" name="password" id="userpassword" required>
+                    <button id="adduser">הוסף מנוי</button>
+                </form>
+                <form class="add" id="adbook">
+                    <label for="title">שם הספר:</label>
+                    <input type="text" name="title" id="title"  required>
+                    <label for="author">מחבר:</label>
+                    <input type="text" name="author" id="author" required>
+                    <label for="genre">ז'אנר:</label>
+                    <select name="genre" id="genre" form="adbook">
+                        <option value="Genral">כללי</option>
+                        <option value="Education">חינוך</option>
+                        <option value="Stories">סיפורים</option>
+                        <option value="Academic">עיוני</option>
+                    </select>
+                    <label for="pages">מס' עמודים:</label>
+                    <input type="number" name="pages" id="pages" min="0" required>
+                    <label for="imagebook">תמונה:</label>
+                    <input type="url" name="imagebook" id="photo" required>
+                    <label for="typeBook">סוג ספר:</label>
+                    <select name="typeBook" id="typeBook" form="adbook" required>
+                        <option value="printed">מודפס</option>
+                        <option value="ebook">אלקטרוני</option>
+                    </select>
+                    <div id="printed">
+                        <label for="quantity">מס' עותקים:</label>
+                        <input type="number" name="quantity" id="quantity" min="1" max="3" value="1" placeholder="1-3" required>
+                        <label for="borrowBook">ניתן להשאלה:</label>
+                        <select name="borrowBook" id="borrow" form="adbook" required>
+                            <option value=true>כן</option>
+                            <option value=false>לא</option>
+                        </select>
+                        <button id="addPbook">הוסף ספר</button>
+                    </div>
+                    <button id="addEbook">הוסף ספר</button>
+                </form>
+                <div id="reportarea">
+                </div>
+            </div>
+        </div>
+        <div id="genralscreen">
+            <div id="booksArea">
+            </div>
+            <div id="myborrowing">
+                <!-- <button id="closelist">סגור</button> -->
+            </div>
+        </div>
+    </div>
+    <footer>
+        <h3>כל מה שקורה, קורא כאן</h3>
+    </footer>
+</body>
+
+</html>

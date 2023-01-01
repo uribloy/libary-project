@@ -1,0 +1,235 @@
+import { Ebook } from "/EbookClass.js"
+import { Pbook } from "/PbookClass.js"
+import { User } from "/ReaderClass.js"
+import { Report } from "./reportClass.JS";
+import { Screendisplay } from "./screendisplayClass.JS";
+import { Render } from "./render.js";
+
+class AddUser {
+  constructor() {
+    this.add();
+  }
+  add() {
+    // הגדרת משתנים למשתמש
+    let userfname = document.getElementById('fname');
+    let userlname = document.getElementById('lname');
+    let useradress = document.getElementById('useradress');
+    let userphone = document.getElementById('userphone');
+    let useremail = document.getElementById('usermail');
+    let userpassword = document.getElementById('userpassword');
+    // יצירת מנוי חדש
+    document.getElementById('adduser').addEventListener('click', async (event) => {
+      event.preventDefault();
+      let newuser = new User(
+        userfname.value, userlname.value, useradress.value, userphone.value, useremail.value, userpassword.value
+      )
+      // שמירה לשרת (API)
+      let postuser = await fetch('https://6397860286d04c76339806ee.mockapi.io/lib/v1/users/',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            address: useradress.value,
+            email: useremail.value,
+            fname: userfname.value,
+            lname: userlname.value,
+            password: userpassword.value,
+            phone: userphone.value
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+      display.clearinput("aduser");
+    })
+  }
+}
+class AddBook {
+  constructor() {
+    this.addEbook();
+    this.addPbook();
+  }
+  addEbook() {
+    let booktitle = document.getElementById('title');
+    let bookauthor = document.getElementById('author');
+    let bookpages = document.getElementById('pages');
+    let booktype = document.getElementById("typeBook");
+    let bookphoto = document.getElementById('photo');
+
+    document.getElementById('addEbook').addEventListener('click', async (event) => {
+      event.preventDefault();
+      let bookgenre = document.getElementById("genre");
+      let slctgenre = genre.options[bookgenre.selectedIndex].text;
+      let newebook = new Ebook(booktitle.value, bookauthor.value, slctgenre, bookpages.value, bookphoto.value, booktype.value);
+
+      let postbook = await fetch('https://6397860286d04c76339806ee.mockapi.io/lib/v1/books',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            title: booktitle.value,
+            author: bookauthor.value,
+            genre: slctgenre,
+            pages: bookpages.value,
+            photo: bookphoto.value,
+            type: booktype.value,
+            borrow: "true",
+            quantity: ""
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+      let newrender = new Render;
+      display.clearinput("adbook");
+    });
+  }
+  addPbook() {
+    let booktitle = document.getElementById('title');
+    let bookauthor = document.getElementById('author');
+    let bookpages = document.getElementById('pages');
+    let booktype = document.getElementById("typeBook");
+    let bookphoto = document.getElementById('photo');
+    let bookquantity = document.getElementById('quantity');
+    document.getElementById('addPbook').addEventListener('click', async (event) => {
+      event.preventDefault();
+      let bookgenre = document.getElementById("genre");
+      let slctgenre = genre.options[bookgenre.selectedIndex].text;
+      let canborrow = document.getElementById("borrow");
+      let slctborrow = canborrow.value;
+      let newpbook = new Pbook(booktitle.value, bookauthor.value, slctgenre, bookpages.value, bookphoto.value, booktype.value, bookquantity.value, slctborrow)
+
+      let postbook = await fetch('https://6397860286d04c76339806ee.mockapi.io/lib/v1/books',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            title: booktitle.value,
+            author: bookauthor.value,
+            genre: slctgenre,
+            pages: bookpages.value,
+            photo: bookphoto.value,
+            type: booktype.value,
+            borrow: slctborrow,
+            quantity: bookquantity.value
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+      let nrender = new Render;
+      display.clearinput("adbook");
+    });
+  }
+}
+export class Upbook {
+  constructor() {
+    // this.updatebook();
+  }
+  async updatebook(book) {
+    let putbook = await fetch(`https://6397860286d04c76339806ee.mockapi.io/lib/v1/books/${book.id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify({
+          quantity: (book.quantity - 1),
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        }
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    let newrender = new Render;
+  }
+}
+export class Pushbook {
+  constructor() { }
+  async pushTomybook(book) {
+    let pushbook = await fetch('https://6397860286d04c76339806ee.mockapi.io/lib/v1/users/1/userbooks',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          title: book.title,
+          author: book.author,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }
+
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    alert(`הספר ${book.title} נוסף לרשימת הספרים שלך`);
+    let newBorrow = new Borw();
+  }
+}
+export class Borw {
+  constructor() {
+    this.mybook();
+  }
+  async mybook() {
+    let borrowbook = document.getElementById("myborrowing");
+    borrowbook.innerHTML = "";
+    let borrow = await fetch("https://6397860286d04c76339806ee.mockapi.io/lib/v1/users/1/userbooks").then((response) => response.json());
+    borrow.forEach((book, index) => {
+      let borrowfild = document.createElement("div");
+      let borrowTitle = document.createTextNode(`${index + 1}. ${book.title} מאת ${book.author}`);
+      let rtrnbookbtn = document.createElement("button");
+      borrowfild.setAttribute("class", "myborrow");
+      rtrnbookbtn.setAttribute("id", `btn${book.Id}`);
+      rtrnbookbtn.innerText = "החזר";
+      rtrnbookbtn.addEventListener("click", async () => {
+        alert(`הספר ${book.title} הוחזר בהצלחה`);
+        let delbook = await fetch("https://6397860286d04c76339806ee.mockapi.io/lib/v1/books")
+          .then((response) => response.json()).then((responsedata) => {
+            let allbooks = responsedata;
+            allbooks.forEach(async (abook) => {
+              if (book.title == abook.title && abook.type == "printed") {
+                await fetch(`https://6397860286d04c76339806ee.mockapi.io/lib/v1/books/${abook.id}`,
+                  {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                      quantity: (abook.quantity + 1),
+                    }),
+                    headers: {
+                      'Content-type': 'application/json; charset=UTF-8',
+                    },
+                  })
+                  .then((response) => response.json())
+                  .then((data) => console.log(data));
+                let newrender = new Render;
+              }
+            });
+          });
+        let rtrnbook = await fetch(`https://6397860286d04c76339806ee.mockapi.io/lib/v1/users/1/userbooks/${book.id}`,
+          { method: 'DELETE' })
+          .then((response) => response.json())
+        this.mybook();
+      });
+      borrowfild.appendChild(borrowTitle);
+      borrowfild.appendChild(rtrnbookbtn);
+      borrowbook.appendChild(borrowfild);
+    });
+    let closebtn = document.createElement("button");
+    closebtn.setAttribute("id", `closelist`);
+    closebtn.innerText = "סגור";
+    closebtn.addEventListener("click", () => {
+      document.getElementById("booksArea").style.width = "auto";
+      document.getElementById("myborrowing").style.display = "none";
+    });
+    borrowbook.appendChild(closebtn);
+  }
+}
+let newadduser = new AddUser;
+let newaddBOOK = new AddBook;
+let newrender = new Render;
+let display = new Screendisplay;
+let newborw = new Borw;
+let reports = new Report;
